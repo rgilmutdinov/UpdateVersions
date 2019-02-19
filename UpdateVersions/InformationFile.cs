@@ -25,8 +25,7 @@ namespace UpdateVersions
         {
             FilePath = path;
             Stream fs = File.OpenRead(path);
-            string detectedEncoding = DetectFileEncoding(fs);
-            Encoding = Encoding.GetEncoding(detectedEncoding);
+            Encoding = DetectFileEncoding(fs);
 
             Lines = ReadAllLines(fs, Encoding).ToArray();
         }
@@ -146,30 +145,16 @@ namespace UpdateVersions
             File.WriteAllLines(outPath, Lines, Encoding);
         }
 
-        private static string DetectFileEncoding(Stream fileStream)
+        private static Encoding DetectFileEncoding(Stream fileStream)
         {
-            Encoding utf8Verifier = Encoding.GetEncoding("utf-8", new EncoderExceptionFallback(), new DecoderExceptionFallback());
-            using (StreamReader reader = new StreamReader(fileStream, utf8Verifier, true, leaveOpen: true, bufferSize: 1024))
+            using (StreamReader reader = new StreamReader(fileStream, Encoding.Default, true, 1024, true))
             {
-                string detectedEncoding;
-                try
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        reader.ReadLine();
-                    }
-                    detectedEncoding = reader.CurrentEncoding.BodyName;
-                }
-                catch (Exception)
-                {
-                    // Failed to decode the file using the BOM/UT8. 
-                    // Assume it's local ANSI
-                    detectedEncoding = "ISO-8859-1";
-                }
+                reader.Peek();
+                Encoding encoding = reader.CurrentEncoding;
 
                 // Rewind the stream
                 fileStream.Seek(0, SeekOrigin.Begin);
-                return detectedEncoding;
+                return encoding;
             }
         }
     }
