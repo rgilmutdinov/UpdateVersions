@@ -11,6 +11,13 @@ namespace UpdateVersions
 
         protected override bool ProcessFileVersion(string line, Version ver, out string newLine)
         {
+            Regex regex = new Regex(@"(AssemblyFileVersion)([^\d-]*)((?<major>-?\d+)(,|\.)(\s*)(?<minor>-?\d+)(,|\.)(\s*)(?<build>-?\d+)(,|\.)(\s*)(?<revision>-?\d+))");
+
+            return ProcessVersion(line, regex, ver, out newLine);
+        }
+
+        protected override bool ProcessVersion(string line, Version ver, out string newLine)
+        {
             Regex regex = new Regex(@"(AssemblyVersion)([^\d-]*)((?<major>-?\d+)(,|\.)(\s*)(?<minor>-?\d+)(,|\.)(\s*)(?<build>-?\d+)(,|\.)(\s*)(?<revision>-?\d+))");
 
             return ProcessVersion(line, regex, ver, out newLine);
@@ -18,9 +25,8 @@ namespace UpdateVersions
 
         protected override bool ProcessProductVersion(string line, Version ver, out string newLine)
         {
-            Regex regex = new Regex(@"(AssemblyFileVersion)([^\d-]*)((?<major>-?\d+)(,|\.)(\s*)(?<minor>-?\d+)(,|\.)(\s*)(?<build>-?\d+)(,|\.)(\s*)(?<revision>-?\d+))");
-
-            return ProcessVersion(line, regex, ver, out newLine);
+            newLine = string.Empty;
+            return false;
         }
 
         protected override bool ProcessCopyright(string line, string copyright, out string newLine)

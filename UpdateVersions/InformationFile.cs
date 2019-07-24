@@ -43,6 +43,10 @@ namespace UpdateVersions
                 string newLine;
                 if (fileVersion != null)
                 {
+                    if (ProcessVersion(line, fileVersion, out newLine))
+                    {
+                        Lines[index] = newLine;
+                    }
                     if (ProcessFileVersion(line, fileVersion, out newLine))
                     {
                         Lines[index] = newLine;
@@ -68,6 +72,7 @@ namespace UpdateVersions
         }
 
         protected abstract bool ProcessFileVersion(string line, Version ver, out string newLine);
+        protected abstract bool ProcessVersion(string line, Version ver, out string newLine);
         protected abstract bool ProcessProductVersion(string line, Version ver, out string newLine);
         protected abstract bool ProcessCopyright(string line, string copyright, out string newLine);
 

@@ -17,6 +17,12 @@ namespace UpdateVersions
             return ProcessVersion(line, regex, ver, out newLine);
         }
 
+        protected override bool ProcessVersion(string line, Version ver, out string newLine)
+        {
+            newLine = string.Empty;
+            return false;
+        }
+
         protected override bool ProcessProductVersion(string line, Version ver, out string newLine)
         {
             Regex regex = new Regex(
