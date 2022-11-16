@@ -5,7 +5,7 @@ namespace UpdateVersions
 {
     public class InformationFileFactory
     {
-        public InformationFile GetFile(string path)
+        public IInformationFile GetFile(string path)
         {
             string extension = Path.GetExtension(path)?.ToLower();
             if (extension == ".cs")
@@ -16,6 +16,11 @@ namespace UpdateVersions
             if (extension == ".rc")
             {
                 return new RcInformationFile(path);
+            }
+
+            if (extension == ".csproj")
+            {
+                return new CsprojInformationFile(path);
             }
 
             throw new Exception($"Can\'t read information file: '{path}'");

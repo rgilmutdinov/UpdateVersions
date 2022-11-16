@@ -43,12 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsInformationFile.cs" />
-    <Compile Include="InformationFile.cs" />
+    <Compile Include="IInformationFile.cs" />
+    <Compile Include="TextInformationFile.cs" />
     <Compile Include="InformationFileFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RcInformationFile.cs" />
     <Compile Include="Version.cs" />
+    <Compile Include="CsprojInformationFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

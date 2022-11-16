@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace UpdateVersions
 {
-    public class RcInformationFile : InformationFile
+    public class RcInformationFile : TextInformationFile
     {
         public RcInformationFile(string path) : base(path)
         {

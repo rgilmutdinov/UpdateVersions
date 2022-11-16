@@ -25,7 +25,7 @@ namespace UpdateVersions
             }
 
             InformationFileFactory fileFactory = new InformationFileFactory();
-            InformationFile infoFile = fileFactory.GetFile(filePath);
+            IInformationFile infoFile = fileFactory.GetFile(filePath);
 
             Version fileVersion = null;
             Version productVersion = null;

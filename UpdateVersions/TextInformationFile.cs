@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace UpdateVersions
 {
-    public abstract class InformationFile
+    public abstract class TextInformationFile : IInformationFile
     {
         private static IEnumerable<string> ReadAllLines(Stream fs, Encoding encoding)
         {
@@ -21,7 +21,7 @@ namespace UpdateVersions
             }
         }
 
-        public InformationFile(string path)
+        public TextInformationFile(string path)
         {
             FilePath = path;
             Stream fs = File.OpenRead(path);
